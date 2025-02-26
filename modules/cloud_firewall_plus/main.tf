@@ -4,7 +4,7 @@
 resource "google_compute_firewall_policy" "lab_firewall_policy" {
   provider = google-beta
   short_name    = var.firewall_policy_name
-  parent        = var.org_id
+  parent        = "organizations/866579528862"
 }
 
 resource "google_compute_firewall_policy_association" "default" {

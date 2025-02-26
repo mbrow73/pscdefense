@@ -68,10 +68,18 @@ resource "google_compute_backend_service" "collector_backend" {
   protocol              = "TCP"
   load_balancing_scheme = "INTERNAL_MANAGED"
   timeout_sec           = 30
+  health_checks         = [google_compute_http_health_check.default.self_link]
 
   backend {
     group = google_compute_instance_group_manager.collector_igm.instance_group
   }
+}
+
+## Health check for the collector ##
+resource "google_compute_http_health_check" "default" {
+  name         = "collector-health-check"
+  timeout_sec        = 1
+  check_interval_sec = 1
 }
 
 ## Forwarding rule for the collector ##
