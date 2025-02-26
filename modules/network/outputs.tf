@@ -1,7 +1,3 @@
-output "lab_project_id" {
-  value = google_project.lab_project.project_id
-}
-
 output "network_self_link" {
   value = google_compute_network.lab_network.self_link
 }
