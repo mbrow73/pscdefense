@@ -16,7 +16,7 @@ terraform {
 resource "google_project_iam_member" "service_account_project_creator" {
   project = var.controllerproject
   role    = "roles/resourcemanager.projectCreator"
-  member  = "terraform@testautomation-451116.iam.gserviceaccount.com"
+  member  = "serviceAccount:terraform@testautomation-451116.iam.gserviceaccount.com"
 }
 
 # Call the network module.
