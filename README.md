@@ -11,9 +11,6 @@ This repository sets up a GCP lab environment to demonstrate inspection of traff
 
 The lab creates a new GCP project, configures a Shared VPC with a PSC endpoint connecting to a Google‑managed service, deploys a suite of security controls, and sets up test workloads to generate traffic. This environment demonstrates that traffic to the PSC endpoint can be inspected both from within Google Cloud and from on‑prem (simulated via a VPN).
 
-## Repository Structure
-. ├── README.md ├── TESTING.md ├── diagrams/ │ └── architecture.png ├── modules/ │ ├── network/ │ ├── psc_endpoint/ │ ├── cloud_firewall_plus/ │ ├── cloud_armor/ │ ├── traffic_director/ │ ├── cloud_ids/ │ └── test_workloads/ ├── env/ │ └── lab/ │ ├── main.tf │ ├── variables.tf │ └── outputs.tf └── terraform.tfvars
-
 ## Deployment Instructions
 
 1. **Configure Variables:**  
