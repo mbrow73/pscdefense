@@ -8,7 +8,7 @@ resource "google_compute_global_address" "psc_vip" {
   purpose       = "PRIVATE_SERVICE_CONNECT"
   address_type  = "INTERNAL"
   network       = var.network
-  address       = "10.10.0.10/32"
+  address       = "10.10.0.10"
 }
 
 # PSC Forwarding Rule
