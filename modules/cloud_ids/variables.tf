@@ -40,3 +40,8 @@ variable "psc_endpoint_ip" {
   description = "The PSC endpoint IP address to filter mirrored traffic."
   type        = string
 }
+variable "zone" {
+  description = "GCP zone for the test VM instance."
+  type        = string
+  default     = "us-central1-a"
+}
