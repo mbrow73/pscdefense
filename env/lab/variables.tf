@@ -120,12 +120,6 @@ variable "ssl_certificate" {
   default     = ""
 }
 
-variable "ids_name" {
-  description = "Name for the Cloud IDS endpoint."
-  type        = string
-  default     = "lab-cloud-ids"
-}
-
 variable "zone" {
   description = "GCP zone for test workloads."
   type        = string
