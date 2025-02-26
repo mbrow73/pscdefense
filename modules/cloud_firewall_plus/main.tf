@@ -2,8 +2,15 @@
 // (TLS inspection configuration would normally include CA integration, not shown here.)
 
 resource "google_compute_firewall_policy" "lab_firewall_policy" {
+  provider = google-beta
   short_name    = var.firewall_policy_name
-  parent        = var.project_id
+  parent        = var.org_id
+}
+
+resource "google_compute_firewall_policy_association" "default" {
+  firewall_policy = google_compute_firewall_policy.policy.id
+  attachment_target = var.project_id
+  name = "my-association"
 }
 
 resource "google_compute_firewall_policy_rule" "psc_ips_rule" {

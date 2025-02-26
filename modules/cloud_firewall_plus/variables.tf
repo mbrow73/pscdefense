@@ -21,3 +21,8 @@ variable "target_resource" {
   type        = string
   default     = "lab-client"
 }
+variable "org_id" {
+  description = "Organization ID for firewall policy creation."
+  type        = string
+  default     = "866579528862"
+}
