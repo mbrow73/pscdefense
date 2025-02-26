@@ -1,37 +1,25 @@
-// Create a PSC forwarding rule to a Google-managed service.
-// (This example uses an INTERNAL_MANAGED load balancing scheme.)
-resource "google_compute_forwarding_rule" "psc_forwarding_rule" {
-  name                  = var.psc_name
-  project               = var.project_id
-  region                = var.region  # Specify the region
-  load_balancing_scheme = "INTERNAL"  # Correct scheme for PSC
-  network               = var.network
-  subnetwork            = var.subnetwork
-  target                = google_compute_region_network_endpoint_group.psc_neg.self_link
-  ip_protocol           = "TCP"
-}
-
-
-resource "google_compute_region_network_endpoint_group" "psc_neg" {
-  name                  = var.psc_neg_name
-  project               = var.project_id
-  region                = var.region
-  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = "storage.googleapis.com"
-}
-
-
-resource "google_compute_global_address" "private_service_access" {
-  name          = "psa-range"
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = var.network  // the network self_link
+# Reserve an internal IP for the PSC endpoint
+resource "google_compute_address" "psc_ip" {
+  name          = "psc-internal-ip"
   project       = var.project_id
+  region        = var.region
+  subnetwork    = var.subnetwork
+  address_type  = "INTERNAL"
+  purpose       = "PRIVATE_SERVICE_CONNECT"  # Critical for PSC
 }
 
-resource "google_service_networking_connection" "private_vpc_connection" {
-  network                 = var.network
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.private_service_access.name]
+# Create the PSC Forwarding Rule
+resource "google_compute_forwarding_rule" "psc_forwarding_rule" {
+  name       = var.psc_name
+  project    = var.project_id
+  region     = var.region
+  network    = var.network
+  subnetwork = var.subnetwork
+  ip_address = google_compute_address.psc_ip.address
+
+  # Required fields (set explicitly)
+  load_balancing_scheme = "INTERNAL"          # Must be empty for PSC to Google APIs
+  target                = "storage.googleapis.com"  # Directly specify the Google API
+  port_range            = "443"       # Port for HTTPS
+  ip_protocol           = "TCP"
 }

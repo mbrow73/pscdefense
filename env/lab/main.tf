@@ -35,9 +35,6 @@ module "psc_endpoint" {
   subnetwork   = module.network.subnet_self_link
   region       = var.region
   psc_name     = var.psc_name
-  psc_port     = var.psc_port
-  psc_neg_name = var.psc_neg_name
-  target_service = var.target_service
 }
 
 # Call the Cloud Firewall Plus module.
@@ -50,17 +47,6 @@ module "cloud_firewall_plus" {
 }
 
 
-# Call the Traffic Director module.
-module "traffic_director" {
-  source                 = "../../modules/traffic_director"
-  project_id             = module.network.lab_project_id
-  region                 = var.region
-  td_backend_name        = var.td_backend_name
-  psc_neg_self_link      = module.psc_endpoint.psc_neg_self_link
-  td_url_map_name        = var.td_url_map_name
-  td_target_proxy_name   = var.td_target_proxy_name
-  ssl_certificate        = var.ssl_certificate
-}
 
 
 
