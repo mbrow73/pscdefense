@@ -80,6 +80,7 @@ resource "google_compute_http_health_check" "default" {
   name         = "collector-health-check"
   timeout_sec        = 1
   check_interval_sec = 1
+  project            =var.project_id
 }
 
 ## Forwarding rule for the collector ##

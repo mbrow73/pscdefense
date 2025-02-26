@@ -9,12 +9,12 @@ resource "google_compute_firewall_policy" "lab_firewall_policy" {
 
 resource "google_compute_firewall_policy_association" "default" {
   firewall_policy = google_compute_firewall_policy.lab_firewall_policy.id
-  attachment_target = var.project_id
+  attachment_target = "866579528862"
   name = "my-association"
 }
 
 resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
-  firewall_policy = google_compute_firewall_policy.lab_firewall_policy.short_name
+  firewall_policy = google_compute_firewall_policy.lab_firewall_policy.id
   priority        = 1000
   direction       = "INGRESS"
   action          = "apply_security_profile_group"
@@ -63,7 +63,7 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
   name              = "my-firewall-endpoint-association"
   parent            = "projects/psc-security-lab"
   location          = "us-central1-a"
-  network           = "lab-shared-vpc"
+  network           = "projects/psc-security-lab/global/networks/lab-shared-vpc"
   firewall_endpoint = google_network_security_firewall_endpoint.default.id
   disabled          = false
 }
