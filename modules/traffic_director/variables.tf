@@ -16,7 +16,7 @@ variable "td_backend_name" {
   default     = "lab-td-backend"
 }
 
-variable "psc_neg" {
+variable "psc_neg_self_link" {
   description = "Self-link of the PSC NEG from the psc_endpoint module."
   type        = string
 }

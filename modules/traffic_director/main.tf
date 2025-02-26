@@ -11,7 +11,7 @@ resource "google_compute_region_backend_service" "td_backend" {
   timeout_sec             = 30
 
   backend {
-    group = var.psc_neg
+    group = var.psc_neg_self_link
   }
 }
 
