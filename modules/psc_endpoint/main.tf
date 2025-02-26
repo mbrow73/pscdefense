@@ -13,7 +13,7 @@ resource "google_compute_global_address" "psc_vip" {
 
 # PSC Forwarding Rule
 resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
-  name                  = var.psc_name
+  name                  = "googleapispsc"
   project               = var.project_id
   load_balancing_scheme = ""  # Must be empty for direct PSC
   target                = "vpc-sc"
