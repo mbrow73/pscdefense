@@ -8,8 +8,6 @@ resource "google_compute_global_address" "psc_vip" {
   purpose       = "PRIVATE_SERVICE_CONNECT"
   address_type  = "INTERNAL"
   network       = var.network
-  address       = "10.10.0.0"
-  prefix_length = "28"
 }
 
 # PSC Forwarding Rule
@@ -23,6 +21,3 @@ resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
   port_range            = "443"
 }
 
-# Remove these if not needed for other services:
-# resource "google_compute_global_address" "private_service_access"
-# resource "google_service_networking_connection" "private_vpc_connection"
