@@ -21,8 +21,8 @@ resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
   tls_inspect     ="true"
   security_profile_group = google_network_security_security_profile_group.default.id
   match {
-    src_ip_ranges = ["0.0.0.0/0"]
-    dest_ip_ranges = ["0.0.0.0/0"]
+    src_ip_ranges = ["10.10.0.0/24"]
+    dest_ip_ranges = ["10.2.2.1/32"]
     layer4_configs {
       ip_protocol = "tcp"
       ports       = [var.psc_port]
@@ -32,14 +32,72 @@ resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
   description      = "Allow and inspect traffic to PSC endpoint with IPS/TLS inspection enabled."
 }
 
+## CA / POOL ##
+resource "google_privateca_certificate_authority" "default" {
+  // This example assumes this pool already exists.
+  // Pools cannot be deleted in normal test circumstances, so we depend on static pools
+  pool = "ca-pool"
+  certificate_authority_id = "my-certificate-authority"
+  location = "us-central1"
+  deletion_protection = true
+  config {
+    subject_config {
+      subject {
+        organization = "ACME"
+        common_name = "my-certificate-authority"
+      }
+    }
+    x509_config {
+      ca_options {
+        # is_ca *MUST* be true for certificate authorities
+        is_ca = true
+      }
+      key_usage {
+        base_key_usage {
+          # cert_sign and crl_sign *MUST* be true for certificate authorities
+          cert_sign = true
+          crl_sign = true
+        }
+        extended_key_usage {
+        }
+      }
+    }
+  }
+  # valid for 10 years
+  lifetime = "${10 * 365 * 24 * 3600}s"
+  key_spec {
+    algorithm = "RSA_PKCS1_4096_SHA256"
+  }
+}
+resource "google_privateca_ca_pool" "tls_ca_pool" {
+  name     = "tls-ca-pool"
+  location = "global"
+  tier     = "DEVOPS"  # Use "ENTERPRISE" for production
+  publishing_options {
+    publish_ca_cert = true
+    publish_crl     = true
+  }
+}
 
-## sec profile ##
+##INSPECTION POLICY##
+
+resource "google_network_security_tls_inspection_policy" "tls_inspection_policy" {
+  name        = "tls-inspection-policy"
+  location    = "global"
+  ca_pool     = google_privateca_ca_pool.tls_ca_pool.id  # Reference your CA pool
+  description = "TLS inspection policy for PSC traffic"
+}
+
+
+## sec profiles ##
 resource "google_network_security_security_profile" "default" {
   name        = "my-security-profile"
   parent      = "organizations/866579528862"
   description = "L7 inspection"
   type        = "THREAT_PREVENTION"
-}
+  }
+
+
 
 ## sec profile group ##
 resource "google_network_security_security_profile_group" "default" {
@@ -67,4 +125,5 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
   network           = "projects/psc-security-lab/global/networks/lab-shared-vpc"
   firewall_endpoint = google_network_security_firewall_endpoint.default.id
   disabled          = false
+  tls_inspection_policy = google_network_security_tls_inspection_policy.tls_inspection_policy.id
 }
