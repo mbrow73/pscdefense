@@ -56,7 +56,7 @@ module "traffic_director" {
   project_id             = module.network.lab_project_id
   region                 = var.region
   td_backend_name        = var.td_backend_name
-  psc_neg                = module.psc_endpoint.psc_neg_self_link
+  psc_neg_self_link      = module.psc_endpoint.psc_neg_self_link
   td_url_map_name        = var.td_url_map_name
   td_target_proxy_name   = var.td_target_proxy_name
   ssl_certificate        = var.ssl_certificate
