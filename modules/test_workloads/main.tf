@@ -23,7 +23,7 @@ resource "google_compute_instance" "internal_client" {
 
     # Install the CA certificate for TLS inspection
     cat << CERT > /usr/local/share/ca-certificates/inspection-ca.crt
-    ${google_privateca_certificate_authority.root_ca.pem_ca_certificate}
+    ${google_privateca_certificate_authority.default.pem_ca_certificate}
     CERT
 
     # Update the OS trust store
