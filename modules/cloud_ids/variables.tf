@@ -32,6 +32,7 @@ variable "region" {
 variable "project_id" {
   description = "GCP Project ID."
   type        = string
+  default     = "psc-security-lab"
 }
 
 variable "psc_endpoint_ip" {

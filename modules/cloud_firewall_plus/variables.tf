@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "Project ID for firewall policy creation."
   type        = string
+    default     = "psc-security-lab"
 }
 
 variable "firewall_policy_name" {

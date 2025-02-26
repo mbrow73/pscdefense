@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "Project ID where the PSC endpoint is created"
   type        = string
+  default = "psc-security-lab"
 }
 
 variable "network" {

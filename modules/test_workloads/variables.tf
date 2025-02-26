@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "Project ID for test workloads."
   type        = string
+    default     = "psc-security-lab"
 }
 
 variable "zone" {

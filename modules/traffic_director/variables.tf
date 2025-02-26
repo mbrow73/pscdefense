@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "Project ID for Traffic Director."
   type        = string
+  default     ="psc-security-lab"
 }
 
 variable "region" {

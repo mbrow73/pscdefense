@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "Project ID for Cloud Armor policy."
   type        = string
+  default     ="psc-security-lab"
 }
 
 variable "security_policy_name" {

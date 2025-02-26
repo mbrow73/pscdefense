@@ -6,6 +6,7 @@ variable "project_name" {
 variable "project_id" {
   description = "Project ID for the new GCP lab project"
   type        = string
+  default = "psc-defense-lab"
 }
 
 variable "org_id" {
