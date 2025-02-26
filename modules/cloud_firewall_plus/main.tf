@@ -9,7 +9,7 @@ resource "google_compute_firewall_policy" "lab_firewall_policy" {
 
 resource "google_compute_firewall_policy_association" "default" {
   firewall_policy = google_compute_firewall_policy.lab_firewall_policy.id
-  attachment_target = "projects/psc-security-lab/global/networks/lab-shared-vpc"
+  attachment_target = "organizations/866579528862"
   name = "my-association"
 }
 
