@@ -2,7 +2,7 @@
 variable "psc_name" {
   description = "Name for the PSC forwarding rule"
   type        = string
-  default     = "psc-storage-endpoint"
+  default     = "apispsc"
 }
 
 variable "project_id" {
