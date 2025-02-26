@@ -19,6 +19,5 @@ resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
   target                = "vpc-sc"
   network               = var.network
   ip_address            = google_compute_global_address.psc_vip.address
-  port_range            = "443"
 }
 
