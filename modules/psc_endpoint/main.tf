@@ -1,6 +1,3 @@
-# Reserve an internal IP for the PSC endpoint
-# modules/psc_endpoint/main.tf
-
 # Reserve global INTERNAL address for PSC
 resource "google_compute_global_address" "psc_vip" {
   name          = "psc-vip"
