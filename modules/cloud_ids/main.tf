@@ -80,7 +80,7 @@ resource "google_compute_forwarding_rule" "collector_ilb" {
   name                  = "collector-ilb"
   project               = var.project_id
   region                = var.region
-  load_balancing_scheme = "INTERNAL"
+  load_balancing_scheme = "INTERNAL_MANAGED"
   network               = var.network
   subnetwork            = var.subnetwork
   ip_protocol           = "TCP"
