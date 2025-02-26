@@ -41,5 +41,5 @@ variable "psc_neg_name" {
 variable "target_service" {
   description = "Target service attachment self link (Google-managed service) for PSC."
   type        = string
-  default     = "projects/servicenetworking/global/serviceAttachments/servicenetworking-googleapis-com"
+  default     = "servicenetworking.googleapis.com"
 }

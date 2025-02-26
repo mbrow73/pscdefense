@@ -7,7 +7,7 @@ resource "google_compute_firewall_policy" "lab_firewall_policy" {
 }
 
 resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
-  firewall_policy = google_compute_firewall_policy.lab_firewall_policy.name
+  firewall_policy = google_compute_firewall_policy.lab_firewall_policy.short_name
   priority        = 1000
   direction       = "INGRESS"
   action          = "ALLOW"  // Change to DENY to block traffic if desired.
