@@ -66,7 +66,7 @@ resource "google_compute_backend_service" "collector_backend" {
   name                  = "collector-backend"
   project               = var.project_id
   protocol              = "TCP"
-  load_balancing_scheme = "INTERNAL"
+  load_balancing_scheme = "INTERNAL_MANAGED"
   timeout_sec           = 30
 
   backend {
