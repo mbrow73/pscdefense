@@ -1,6 +1,3 @@
-locals {
-  lab_project_id = var.project_id
-}
 // Create a Shared VPC network.
 resource "google_compute_network" "lab_network" {
   name                    = var.network_name
