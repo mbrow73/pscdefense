@@ -49,12 +49,6 @@ module "cloud_firewall_plus" {
   target_resource      = var.target_resource
 }
 
-# Call the Cloud Armor module.
-module "cloud_armor" {
-  source               = "../../modules/cloud_armor"
-  project_id           = module.network.lab_project_id
-  security_policy_name = var.security_policy_name
-}
 
 # Call the Traffic Director module.
 module "traffic_director" {
