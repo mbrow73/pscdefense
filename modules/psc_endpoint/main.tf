@@ -16,4 +16,20 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = var.project_id
   region                = var.region
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+  psc_target_service    = var.target_service
+}
+
+resource "google_compute_global_address" "private_service_access" {
+  name          = "psa-range"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = var.network  // the network self_link
+  project       = var.project_id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+  network                 = var.network
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_service_access.name]
 }
