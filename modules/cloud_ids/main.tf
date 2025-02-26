@@ -15,6 +15,7 @@ resource "google_compute_forwarding_rule" "ids_collector_ilb" {
   subnetwork            = var.subnetwork
   ip_protocol           = "TCP"
   ports                 = ["80"]
+  target                = google_cloud_ids_endpoint.cloud_ids.self_link
 }
 
 resource "google_compute_packet_mirroring" "psc_packet_mirroring" {
@@ -39,3 +40,4 @@ resource "google_compute_packet_mirroring" "psc_packet_mirroring" {
     cidr_ranges = [var.psc_endpoint_ip]
   }
 }
+

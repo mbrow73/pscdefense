@@ -3,7 +3,7 @@
 resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
   name                  = var.psc_name
   project               = var.project_id
-  load_balancing_scheme = "INTERNAL_MANAGED"
+  load_balancing_scheme = "GLOBAL"
   network               = var.network
   subnetwork            = var.subnetwork
   target                = var.target_service

@@ -12,6 +12,7 @@ variable "ids_location" {
 variable "network" {
   description = "The network self_link in which to deploy Cloud IDS and packet mirroring."
   type        = string
+  default     = "lab-shared-vpc"
 }
 
 variable "subnetwork" {

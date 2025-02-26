@@ -7,7 +7,7 @@ variable "project_id" {
 variable "firewall_policy_name" {
   description = "Name for the hierarchical firewall policy."
   type        = string
-  default     = "lab-firewall-policy"
+  default     = "lab_firewall_policy"
 }
 
 variable "psc_port" {
