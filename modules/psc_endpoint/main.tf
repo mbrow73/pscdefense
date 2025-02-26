@@ -1,25 +1,27 @@
 # Reserve an internal IP for the PSC endpoint
-resource "google_compute_address" "psc_ip" {
-  name          = "psc-internal-ip"
+# modules/psc_endpoint/main.tf
+
+# Reserve global INTERNAL address for PSC
+resource "google_compute_global_address" "psc_vip" {
+  name          = "psc-vip"
   project       = var.project_id
-  region        = var.region
-  subnetwork    = var.subnetwork
+  purpose       = "PRIVATE_SERVICE_CONNECT"
   address_type  = "INTERNAL"
-  purpose       = "PRIVATE_SERVICE_CONNECT"  # Critical for PSC
+  network       = var.network
+  prefix_length = 24  # Required for global PSC addresses
 }
 
-# Create the PSC Forwarding Rule
-resource "google_compute_forwarding_rule" "psc_forwarding_rule" {
-  name       = var.psc_name
-  project    = var.project_id
-  region     = var.region
-  network    = var.network
-  subnetwork = var.subnetwork
-  ip_address = google_compute_address.psc_ip.address
-
-  # Required fields (set explicitly)
-  load_balancing_scheme = "INTERNAL"          # Must be empty for PSC to Google APIs
-  target                = "storage.googleapis.com"  # Directly specify the Google API
-  port_range            = "443"       # Port for HTTPS
-  ip_protocol           = "TCP"
+# PSC Forwarding Rule
+resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
+  name                  = var.psc_name
+  project               = var.project_id
+  load_balancing_scheme = ""  # Must be empty for direct PSC
+  target                = "storage.googleapis.com"
+  network               = var.network
+  ip_address            = google_compute_global_address.psc_vip.address
+  port_range            = "443"
 }
+
+# Remove these if not needed for other services:
+# resource "google_compute_global_address" "private_service_access"
+# resource "google_service_networking_connection" "private_vpc_connection"
