@@ -8,7 +8,6 @@ resource "google_compute_global_address" "psc_vip" {
   purpose       = "PRIVATE_SERVICE_CONNECT"
   address_type  = "INTERNAL"
   network       = var.network
-  prefix_length = 24  # Required for global PSC addresses
 }
 
 # PSC Forwarding Rule
