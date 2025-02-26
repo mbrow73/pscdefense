@@ -12,7 +12,7 @@ resource "google_compute_security_policy" "lab_armor_policy" {
     match {
       versioned_expr = "PRECONFIGURED_WAF"
       config {
-        src_ip_ranges = "*"
+        src_ip_ranges= ["*"]
         }
       }
     }
@@ -24,7 +24,7 @@ resource "google_compute_security_policy" "lab_armor_policy" {
     match {
       versioned_expr = "SRC_IPS_V1"
       config {
-        src_ip_ranges = "*"
+        src_ip_ranges = ["*"]
         }
       }
     }
