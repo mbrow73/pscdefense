@@ -3,15 +3,15 @@
 // This example creates an internal HTTPS backend service that uses a PSC NEG.
 
 resource "google_compute_region_backend_service" "td_backend" {
-  name                    = var.td_backend_name
-  project                 = var.project_id
-  region                  = var.region
-  protocol                = "HTTPS"
-  load_balancing_scheme   = "INTERNAL_MANAGED"
-  timeout_sec             = 30
+  name                  = var.td_backend_name
+  project               = var.project_id
+  region                = var.region  # Specify the region
+  protocol              = "HTTPS"
+  load_balancing_scheme = "INTERNAL_MANAGED"
+  timeout_sec           = 30
 
   backend {
-    group = var.psc_neg_self_link
+    group = var.psc_neg_self_link  # Ensure this is a regional NEG
   }
 }
 
