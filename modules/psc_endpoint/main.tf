@@ -6,7 +6,7 @@ resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
   load_balancing_scheme = "INTERNAL_MANAGED"
   network               = var.network
   subnetwork            = var.subnetwork
-  target                = "storage.googleapis.com"
+  target                = google_compute_region_network_endpoint_group.psc_neg.self_link
   ip_protocol           = "TCP"
 }
 
