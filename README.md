@@ -10,6 +10,54 @@ This repository sets up a GCP lab environment to demonstrate inspection of traff
 ## Overview
 
 The lab creates a new GCP project, configures a Shared VPC with a PSC endpoint connecting to a Google‑managed service, deploys a suite of security controls, and sets up test workloads to generate traffic. This environment demonstrates that traffic to the PSC endpoint can be inspected both from within Google Cloud and from on‑prem (simulated via a VPN).
+## Repo Structure
+pscdefense/
+├── README.md
+├── TESTING.md
+├── diagrams/
+│   └── architecture.png         # (Your architecture diagram image)
+├── modules/
+│   ├── network/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── psc_endpoint/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── cloud_firewall_plus/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── cloud_armor/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── traffic_director/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── cloud_ids/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   └── test_workloads/
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       └── README.md
+└── env/
+    └── lab/
+        ├── main.tf
+        ├── variables.tf
+        └── outputs.tf
+terraform.tfvars
 
 ## Deployment Instructions
 
