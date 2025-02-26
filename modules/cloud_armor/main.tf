@@ -4,15 +4,42 @@ resource "google_compute_security_policy" "lab_armor_policy" {
   project     = var.project_id
   type = "CLOUD_ARMOR"
 
+
   rule {
     priority    = 1000
-    description = "Block malicious requests (example SQL injection)"
+    action      = "deny(403)"
+    description = "Block SQL injection attempts"
     match {
-      versioned_expr = "SRC_IPS_V1" // This is an example; adjust based on your needs.
+      versioned_expr = "PRECONFIGURED_WAF"
       config {
-        src_ip_ranges = ["*"]
+        src_ip_ranges = "*"
+        }
       }
     }
-    action = "deny(403)"
+
+  rule {
+    priority    = 1001
+    action      = "allow"
+    description = "Block SQL injection attempts"
+    match {
+      versioned_expr = "SRC_IPS_V1"
+      config {
+        src_ip_ranges = "*"
+        }
+      }
+    }
+
+rule {
+  description     = "default rule"
+  action          = "deny"
+  priority        = "2147483647"
+  match {
+    versioned_expr = "SRC_IPS_V1"
+    config {
+      src_ip_ranges = ["*"]
+    }
   }
 }
+}
+
+

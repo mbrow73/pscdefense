@@ -1,6 +1,6 @@
 // Create a PSC forwarding rule to a Google-managed service.
 // (This example uses an INTERNAL_MANAGED load balancing scheme.)
-resource "google_compute_forwarding_rule" "psc_forwarding_rule" {
+resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
   name                  = var.psc_name
   project               = var.project_id
   load_balancing_scheme = "INTERNAL_MANAGED"
@@ -8,7 +8,6 @@ resource "google_compute_forwarding_rule" "psc_forwarding_rule" {
   subnetwork            = var.subnetwork
   target                = var.target_service
   ip_protocol           = "TCP"
-  ports                 = [var.psc_port]
 }
 
 // Optionally, create a PSC Network Endpoint Group (NEG) for more control.
@@ -17,5 +16,4 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = var.project_id
   region                = var.region
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  subnetwork            = var.subnetwork
 }
