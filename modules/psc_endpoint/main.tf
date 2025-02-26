@@ -15,7 +15,6 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = var.project_id
   region                = var.region
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  subnetwork            = var.subnetwork
   psc_target_service    = "storage.googleapis.com"
 }
 

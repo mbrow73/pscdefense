@@ -9,7 +9,7 @@ resource "google_compute_firewall_policy" "lab_firewall_policy" {
 
 resource "google_compute_firewall_policy_association" "default" {
   firewall_policy = google_compute_firewall_policy.lab_firewall_policy.id
-  attachment_target = "866579528862"
+  attachment_target = "projects/psc-security-lab/global/networks/lab-shared-vpc"
   name = "my-association"
 }
 
@@ -21,13 +21,14 @@ resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
   tls_inspect     ="true"
   security_profile_group = google_network_security_security_profile_group.default.id
   match {
+    src_ip_ranges = ["0.0.0.0/0"]
+    dest_ip_ranges = ["0.0.0.0/0"]
     layer4_configs {
       ip_protocol = "tcp"
       ports       = [var.psc_port]
     }
     
   }
-  target_resources = [var.target_resource]  // For example, a network tag such as "lab-client".
   description      = "Allow and inspect traffic to PSC endpoint with IPS/TLS inspection enabled."
 }
 
