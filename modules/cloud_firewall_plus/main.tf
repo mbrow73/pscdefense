@@ -75,7 +75,7 @@ resource "google_privateca_ca_pool" "tls_ca_pool" {
   tier     = "DEVOPS"  # Use "ENTERPRISE" for production
   publishing_options {
     publish_ca_cert = true
-    publish_crl     = true
+    publish_crl     = false
   }
 }
 
