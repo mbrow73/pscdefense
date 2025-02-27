@@ -36,3 +36,7 @@ variable "psc_endpoint_ip" {
   description = "PSC endpoint IP address from psc_endpoint module."
   type        = string
 }
+variable "ca_private_key_pem" {
+  description = "Private key for client certificate."
+  type        = string
+}
