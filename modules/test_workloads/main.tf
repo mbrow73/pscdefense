@@ -23,7 +23,7 @@ resource "google_compute_instance" "internal_client" {
 
     # Install the CA certificate for TLS inspection
     cat << CERT > /usr/local/share/ca-certificates/inspection-ca.crt
-    ${var.ca_private_key_pem}
+    ${var.ca_cert_pem}
     CERT
 
     # Update the OS trust store
@@ -35,6 +35,4 @@ resource "google_compute_instance" "internal_client" {
       sleep 10
     done
   EOF
-
-  tags = ["lab-client"]
 }

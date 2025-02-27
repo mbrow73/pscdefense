@@ -53,6 +53,7 @@ module "cloud_firewall_plus" {
 # Deploy test workloads.
 module "test_workloads" {
   source          = "../../modules/test_workloads"
+  ca_cert_pem     = module.cloud_firewall_plus.ca_cert_pem
   project_id      = module.network.lab_project_id
   zone            = var.zone
   network         = module.network.network_self_link
