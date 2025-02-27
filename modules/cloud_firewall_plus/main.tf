@@ -40,6 +40,7 @@ resource "google_privateca_certificate_authority" "default" {
   certificate_authority_id = "my-certificate-authority"
   location = "us-central1"
   deletion_protection = true
+  project = var.project_id
   config {
     subject_config {
       subject {
@@ -70,6 +71,7 @@ resource "google_privateca_certificate_authority" "default" {
   }
 }
 resource "google_privateca_ca_pool" "tls_ca_pool" {
+  project = var.project_id
   name     = "tls-ca-pool"
   location = "us-central1"
   tier     = "DEVOPS"  # Use "ENTERPRISE" for production
@@ -83,9 +85,10 @@ resource "google_privateca_ca_pool" "tls_ca_pool" {
 
 resource "google_network_security_tls_inspection_policy" "tls_inspection_policy" {
   name        = "tls-inspection-policy"
-  location    = "global"
+  location    = "us-central1"
   ca_pool     = google_privateca_ca_pool.tls_ca_pool.id  # Reference your CA pool
   description = "TLS inspection policy for PSC traffic"
+  project     = var.project_id
 }
 
 
