@@ -71,7 +71,7 @@ resource "google_privateca_certificate_authority" "default" {
 }
 resource "google_privateca_ca_pool" "tls_ca_pool" {
   name     = "tls-ca-pool"
-  location = "global"
+  location = "us-central1"
   tier     = "DEVOPS"  # Use "ENTERPRISE" for production
   publishing_options {
     publish_ca_cert = true
@@ -83,7 +83,7 @@ resource "google_privateca_ca_pool" "tls_ca_pool" {
 
 resource "google_network_security_tls_inspection_policy" "tls_inspection_policy" {
   name        = "tls-inspection-policy"
-  location    = "us-central1"
+  location    = "global"
   ca_pool     = google_privateca_ca_pool.tls_ca_pool.id  # Reference your CA pool
   description = "TLS inspection policy for PSC traffic"
 }
