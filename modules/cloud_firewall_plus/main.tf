@@ -83,7 +83,7 @@ resource "google_privateca_ca_pool" "tls_ca_pool" {
 
 resource "google_network_security_tls_inspection_policy" "tls_inspection_policy" {
   name        = "tls-inspection-policy"
-  location    = "global"
+  location    = "us-central1"
   ca_pool     = google_privateca_ca_pool.tls_ca_pool.id  # Reference your CA pool
   description = "TLS inspection policy for PSC traffic"
 }
