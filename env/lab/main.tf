@@ -50,28 +50,28 @@ module "cloud_firewall_plus" {
 
 
 
-# Deploy test workloads.
-#module "test_workloads" {
-#  source          = "../../modules/test_workloads"
-#  ca_cert_pem     = module.cloud_firewall_plus.ca_cert_pem
-#  project_id      = module.network.lab_project_id
-#  zone            = var.zone
-#  network         = module.network.network_self_link
-#  subnetwork      = module.network.subnet_self_link
-#  onprem_network  = var.onprem_network
-#  onprem_subnetwork = var.onprem_subnetwork
-#  psc_endpoint_ip = module.psc_endpoint.psc_forwarding_rule_ip
-#}
-
-module "cloud_ids" {
-  subnetwork_name = "lab-subnet"
-  source         = "../../modules/cloud_ids"
-  project_id     = module.network.lab_project_id
-  region         = var.region
-  network        = module.network.network_self_link
-  subnetwork     = module.network.subnet_self_link
-  ids_name       = var.ids_name
-  ids_location   = var.ids_location
+ #Deploy test workloads.
+module "test_workloads" {
+  source          = "../../modules/test_workloads"
+  ca_cert_pem     = module.cloud_firewall_plus.ca_cert_pem
+  project_id      = module.network.lab_project_id
+  zone            = var.zone
+  network         = module.network.network_self_link
+  subnetwork      = module.network.subnet_self_link
+  onprem_network  = var.onprem_network
+  onprem_subnetwork = var.onprem_subnetwork
   psc_endpoint_ip = module.psc_endpoint.psc_forwarding_rule_ip
 }
+
+#module "cloud_ids" {
+#  subnetwork_name = "lab-subnet"
+#  source         = "../../modules/cloud_ids"
+#  project_id     = module.network.lab_project_id
+#  region         = var.region
+#  network        = module.network.network_self_link
+#  subnetwork     = module.network.subnet_self_link
+#  ids_name       = var.ids_name
+#  ids_location   = var.ids_location
+#  psc_endpoint_ip = module.psc_endpoint.psc_forwarding_rule_ip
+#}
 
