@@ -36,7 +36,7 @@ resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
 resource "google_privateca_certificate_authority" "default" {
   // This example assumes this pool already exists.
   // Pools cannot be deleted in normal test circumstances, so we depend on static pools
-  pool = google_privateca_ca_pool.tls_ca_pool.id
+  pool = google_privateca_ca_pool.tls_ca_pool.name  # Use the CA pool's NAME, not ID
   certificate_authority_id = "my-certificate-authority"
   location = "us-central1"
   deletion_protection = true
