@@ -143,6 +143,6 @@ resource "google_compute_firewall" "allow_psc_to_backend" {
     ports    = ["80"]
   }
 
-  source_ranges = ["10.2.2.3/32"]  # PSC endpoint IP
+  source_ranges = ["35.191.0.0/16", "130.211.0.0/22"]  # googlehealthz
   target_tags   = ["http-server"]  # Tags on the backend instance
 }

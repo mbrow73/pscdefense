@@ -61,24 +61,24 @@ resource "google_compute_instance_group" "backend_instance_group" {
 }
 
 ##servicve attchment ##
-resource "google_compute_service_attachment" "backend_service_attachment" {
-  name        = "backend-service-attachment"
-  project     = var.project_id
-  region      = "us-central1"
-  description = "Service Attachment for Backend Service"
-
-  # Target service (the backend service)
-  target_service = google_compute_backend_service.backend_service.id
-
-  # Enable connection to the backend service
-  connection_preference = "ACCEPT_AUTOMATIC"
-
-  # Subnets that can be used to connect to the backend service
-  nat_subnets = ["projects/psc-security-lab/regions/us-central1/subnetworks/default"]
-
-  # Enable proxy protocol if needed (optional)
-  enable_proxy_protocol = false
-}
+#resource "google_compute_service_attachment" "backend_service_attachment" {
+#  name        = "backend-service-attachment"
+#  project     = var.project_id
+#  region      = "us-central1"
+#  description = "Service Attachment for Backend Service"
+#
+#  # Target service (the backend service)
+#  target_service = google_compute_backend_service.backend_service.id
+#
+#  # Enable connection to the backend service
+#  connection_preference = "ACCEPT_AUTOMATIC"
+#
+#  # Subnets that can be used to connect to the backend service
+#  nat_subnets = ["projects/psc-security-lab/regions/us-central1/subnetworks/default"]
+#
+#  # Enable proxy protocol if needed (optional)
+#  enable_proxy_protocol = false
+#}
 
 ## new psc endpoint ##
 resource "google_compute_global_address" "psc_backend_vip" {
