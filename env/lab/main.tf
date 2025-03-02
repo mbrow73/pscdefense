@@ -35,6 +35,7 @@ module "psc_endpoint" {
   subnetwork   = module.network.subnet_self_link
   region       = var.region
   psc_name     = var.psc_name
+  backend_service_id = module.test_workloads.backend_service_id
 }
 
 # Call the Cloud Firewall Plus module.
