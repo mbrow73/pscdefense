@@ -11,14 +11,14 @@ resource "google_compute_global_address" "psc_vip" {
   address       = "10.2.2.1"
 }
 # reserve a private internal address for published service psc-endpoint.
-resource "google_compute_global_address" "psc_endpoint" {
-  project       = var.project_id
-  name          = "psc-endpoint"
-  purpose       = "PRIVATE_SERVICE_CONNECT"
-  address_type  = "INTERNAL"
-  network       = var.network
-  address       = "10.2.2.2"
-}
+#resource "google_compute_global_address" "psc_endpoint" {
+#  project       = var.project_id
+#  name          = "psc-endpoint"
+#  purpose       = "PRIVATE_SERVICE_CONNECT"
+#  address_type  = "INTERNAL"
+#  network       = var.network
+#  address       = "10.2.2.2"
+#}
 
 # PSC Forwarding Rule APIs
 resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
@@ -32,34 +32,34 @@ resource "google_compute_global_forwarding_rule" "psc_forwarding_rule" {
 
 
 ## Health Check ##
-resource "google_compute_health_check" "backend_health_check" {
-  name    = "backend-health-check"
-  project = var.project_id
-
-  http_health_check {
-    port = 80
-  }
-}
+#resource "google_compute_health_check" "backend_health_check" {
+#  name    = "backend-health-check"
+#  project = var.project_id
+#
+#  http_health_check {
+#    port = 80
+#  }
+#}
 
 ## BE service ##
 
-resource "google_compute_backend_service" "backend_service" {
-  name          = "backend-service"
-  project       = var.project_id
-  health_checks = [google_compute_health_check.backend_health_check.id]
-  port_name     = "http"
+#resource "google_compute_backend_service" "backend_service" {
+#  name          = "backend-service"
+#  project       = var.project_id
+#  health_checks = [google_compute_health_check.backend_health_check.id]
+#  port_name     = "http"
+#
+#  backend {
+#    group = google_compute_instance_group.backend_instance_group.id
+#  }
+#}
 
-  backend {
-    group = google_compute_instance_group.backend_instance_group.id
-  }
-}
-
-resource "google_compute_instance_group" "backend_instance_group" {
-  name        = "backend-instance-group"
-  project     = var.project_id
-  zone        = "us-central1-a"
-  instances   = [var.backend_service_id]
-}
+#resource "google_compute_instance_group" "backend_instance_group" {
+#  name        = "backend-instance-group"
+#  project     = var.project_id
+#  zone        = "us-central1-a"
+#  instances   = [var.backend_service_id]
+#}
 
 ##servicve attchment ##
 #resource "google_compute_service_attachment" "backend_service_attachment" {
@@ -82,14 +82,14 @@ resource "google_compute_instance_group" "backend_instance_group" {
 #}
 
 ## new psc endpoint ##
-resource "google_compute_global_address" "psc_backend_vip" {
-  name          = "psc-backend-vip"
-  project       = var.project_id
-  purpose       = "PRIVATE_SERVICE_CONNECT"
-  address_type  = "INTERNAL"
-  network       = var.network
-  address       = "10.2.2.3"
-}
+#resource "google_compute_global_address" "psc_backend_vip" {
+#  name          = "psc-backend-vip"
+#  project       = var.project_id
+#  purpose       = "PRIVATE_SERVICE_CONNECT"
+#  address_type  = "INTERNAL"
+#  network       = var.network
+#  address       = "10.2.2.3"
+#}
 
 #resource "google_compute_global_forwarding_rule" "psc_backend_forwarding_rule" {
 #  name                  = "psc-backend-forwarding-rule"
