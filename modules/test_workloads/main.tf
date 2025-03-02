@@ -34,7 +34,7 @@ resource "google_compute_instance" "backend_service" {
 
   network_interface {
     network = var.network
-    subnetwork = "projects/psc-security-lab/regions/us-central1/subnetworks/default"
+    subnetwork = "projects/psc-security-lab/regions/us-central1/subnetworks/psc-subnet"
     access_config {
       # Ephemeral IP
     }
