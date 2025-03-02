@@ -136,7 +136,7 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
 resource "google_compute_firewall" "allow_psc_to_backend" {
   name    = "allow-psc-to-backend"
   project = var.project_id
-  network = "psc-security-lab"
+  network = "lab-shared-vpc"
 
   allow {
     protocol = "tcp"
