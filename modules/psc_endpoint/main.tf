@@ -47,6 +47,7 @@ resource "google_compute_backend_service" "backend_service" {
   name          = "backend-service"
   project       = var.project_id
   health_checks = [google_compute_health_check.backend_health_check.id]
+  port_name     = "http"
 
   backend {
     group = google_compute_instance_group.backend_instance_group.id
