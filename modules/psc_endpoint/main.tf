@@ -57,7 +57,7 @@ resource "google_compute_instance_group" "backend_instance_group" {
   name        = "backend-instance-group"
   project     = var.project_id
   zone        = "us-central1-a"
-  instances   = [google_compute_instance.backend_service.id]
+  instances   = [var.backend_service_id]
 }
 
 ##servicve attchment ##
