@@ -20,3 +20,6 @@ variable "subnetwork" {
 variable "region" {
   type = string
 }
+variable "backend_service_id" {
+  type = string
+}
