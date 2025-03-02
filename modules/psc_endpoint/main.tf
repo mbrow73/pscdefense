@@ -11,14 +11,13 @@ resource "google_compute_global_address" "psc_vip" {
   address       = "10.2.2.1"
 }
 # reserve a private internal address for published service psc-endpoint.
-resource "google_compute_address" "psc_endpoint" {
+resource "google_compute_global_address" "psc_endpoint" {
   project       = var.project_id
   name          = "psc-endpoint"
   purpose       = "PRIVATE_SERVICE_CONNECT"
   address_type  = "INTERNAL"
   network       = var.network
   address       = "10.2.2.2"
-  region        = "us-central1"
 }
 
 # PSC Forwarding Rule APIs
