@@ -16,7 +16,7 @@ resource "google_compute_firewall_policy_association" "default" {
 resource "google_compute_firewall_policy_rule" "psc_ips_rule" {
   firewall_policy = google_compute_firewall_policy.lab_firewall_policy.id
   priority        = 1000
-  direction       = "INGRESS"
+  direction       = "EGRESS"
   action          = "apply_security_profile_group"
   tls_inspect     ="true"
   security_profile_group = google_network_security_security_profile_group.default.id
@@ -129,4 +129,20 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
   firewall_endpoint = google_network_security_firewall_endpoint.default.id
   disabled          = false
   tls_inspection_policy = google_network_security_tls_inspection_policy.tls_inspection_policy.id
+}
+
+## provider http rule ##
+
+resource "google_compute_firewall" "allow_psc_to_backend" {
+  name    = "allow-psc-to-backend"
+  project = var.project_id
+  network = "psc-security-lab"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["10.2.2.3/32"]  # PSC endpoint IP
+  target_tags   = ["http-server"]  # Tags on the backend instance
 }

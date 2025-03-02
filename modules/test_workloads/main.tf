@@ -17,3 +17,36 @@ resource "google_compute_instance" "internal_client" {
     access_config {}
   }
 }
+
+## pub service provider ##
+
+resource "google_compute_instance" "backend_service" {
+  name         = "backend-service-instance"
+  machine_type = "e2-medium"
+  zone         = "us-central1-a"
+  project      = var.project_id
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-10"
+    }
+  }
+
+  network_interface {
+    network = var.network
+    subnetwork = "projects/psc-security-lab/regions/us-central1/subnetworks/default"
+    access_config {
+      # Ephemeral IP
+    }
+  }
+
+  tags = ["http-server"]
+
+  metadata_startup_script = <<-EOF
+    #!/bin/bash
+    apt-get update
+    apt-get install -y apache2
+    systemctl start apache2
+    systemctl enable apache2
+  EOF
+}
