@@ -136,7 +136,7 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
 resource "google_compute_firewall" "allow_healthz_to_backend" {
   name    = "allow-psc-to-backend"
   project = var.project_id
-  network = "lab-shared-vpc"
+  network = "default"
   direction = "INGRESS"
 
   allow {
@@ -151,7 +151,7 @@ resource "google_compute_firewall" "allow_healthz_to_backend" {
 resource "google_compute_firewall" "allow_natpool_to_backend" {
   name    = "allow-psc-to-backend"
   project = var.project_id
-  network = "lab-shared-vpc"
+  network = "default"
   direction = "EGRESS"
 
   allow {
