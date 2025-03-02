@@ -90,11 +90,11 @@ resource "google_compute_global_address" "psc_backend_vip" {
   address       = "10.2.2.3"
 }
 
-resource "google_compute_global_forwarding_rule" "psc_backend_forwarding_rule" {
-  name                  = "psc-backend-forwarding-rule"
-  project               = var.project_id
-  load_balancing_scheme = ""  # Must be empty for direct PSC
-  target                = google_compute_service_attachment.backend_service_attachment.id
-  network               = var.network
-  ip_address            = google_compute_global_address.psc_backend_vip.address
-}
+#resource "google_compute_global_forwarding_rule" "psc_backend_forwarding_rule" {
+#  name                  = "psc-backend-forwarding-rule"
+#  project               = var.project_id
+#  load_balancing_scheme = ""  # Must be empty for direct PSC
+#  target                = google_compute_service_attachment.backend_service_attachment.id
+#  network               = var.network
+#  ip_address            = google_compute_global_address.psc_backend_vip.address
+#}
