@@ -134,7 +134,7 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
 ## provider http rule ##
 
 resource "google_compute_firewall" "allow_healthz_to_backend" {
-  name    = "allow-psc-to-backend"
+  name    = "allow-healthz-to-backend"
   project = var.project_id
   network = "default"
   direction = "INGRESS"
@@ -149,7 +149,7 @@ resource "google_compute_firewall" "allow_healthz_to_backend" {
 }
 
 resource "google_compute_firewall" "allow_natpool_to_backend" {
-  name    = "allow-psc-to-backend"
+  name    = "natpool-to-backend"
   project = var.project_id
   network = "default"
   direction = "EGRESS"
