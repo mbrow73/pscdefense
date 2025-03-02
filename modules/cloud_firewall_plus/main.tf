@@ -133,10 +133,11 @@ resource "google_network_security_firewall_endpoint_association" "default_associ
 
 ## provider http rule ##
 
-resource "google_compute_firewall" "allow_psc_to_backend" {
+resource "google_compute_firewall" "allow_healthz_to_backend" {
   name    = "allow-psc-to-backend"
   project = var.project_id
   network = "lab-shared-vpc"
+  direction = "INGRESS"
 
   allow {
     protocol = "tcp"
@@ -144,5 +145,20 @@ resource "google_compute_firewall" "allow_psc_to_backend" {
   }
 
   source_ranges = ["35.191.0.0/16", "130.211.0.0/22"]  # googlehealthz
+  target_tags   = ["http-server"]  # Tags on the backend instance
+}
+
+resource "google_compute_firewall" "allow_natpool_to_backend" {
+  name    = "allow-psc-to-backend"
+  project = var.project_id
+  network = "lab-shared-vpc"
+  direction = "EGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["10.128.0.0/20"]  # natsubnet
   target_tags   = ["http-server"]  # Tags on the backend instance
 }
